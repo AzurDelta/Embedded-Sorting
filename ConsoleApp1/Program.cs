@@ -8,17 +8,18 @@ internal class Program
 
     static void SortByNumber(string[] args)
     {
-        List<string> correctOrder = new();
-        var nums = new string[9];
-        for (int i = 0; i < nums.Length; i++)
-            nums[i] = $"{i}";
-        for (int i = 0; i < nums.Length; i++)
+        var correctOrder = new List<string>();
+        var numsAsStrings = new string[9];
+
+        for (int i = 0; i < numsAsStrings.Length; i++)
         {
-            for (int j = 0; j < args.Length; j++)
-            {
-                if (args[j].Contains(nums[i])) correctOrder.Add(args[j]);
-            }
+            numsAsStrings[i] = $"{i}";
         }
+
+        correctOrder = (from numStr in numsAsStrings
+            from arg in args
+            where arg.Contains(numStr)
+            select arg).ToList();
         
         correctOrder.ForEach(x => Console.Write($"{x}; "));
     }
